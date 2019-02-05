@@ -17,7 +17,7 @@
 		<ul>
             <a href="index.php">accueil</a>
             <a href="index.php?page=categories">catégories</a>
-            <a href="index.php?page=archives">archives</a>
+            <a href="index.php?page=archives&id=1">archives</a>
             <a href="index.php?page=auteurs">auteurs</a>
             <a href="index.php?page=about">à propos</a>
             <a href="index.php?page=contact">contact</a>

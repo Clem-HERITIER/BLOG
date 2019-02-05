@@ -3,7 +3,7 @@
     function search_all_posts($bdd)
     {
         $reponse = $bdd->prepare(
-        'select p.title, p.content, p.created_date, p.image, p.id, a.firstname, a.lastname, c.name FROM posts as p
+        'select p.title, p.content, p.created_date, p.image, p.id, p.id_auth, a.firstname, a.lastname, c.name FROM posts as p
         inner join authors as a on p.id_auth = a.id
         inner join categories as c on p.id_cat = c.id
         ORDER BY p.id DESC'
@@ -31,7 +31,7 @@
 
     function search_all_categories($bdd)
     {
-        $reponse = $bdd->prepare('select p.id, p.name, p.description FROM categories as p');
+        $reponse = $bdd->prepare('select A.id, A.name, A.description, A.image FROM categories as A');
         $reponse->execute();
         while ($categories = $reponse->fetch()) 
         {
@@ -39,6 +39,23 @@
         }
         $reponse->closeCursor();
         return $list_categories;
+    }
+
+    function search_posts_by_categories($bdd, $id)
+    {
+        $reponse = $bdd->prepare(
+            'select p.title, p.content, p.created_date, p.image, p.id, p.id_auth, a.firstname, a.lastname, c.name FROM posts as p
+            inner join authors as a on p.id_auth = a.id
+            inner join categories as c on p.id_cat = c.id
+            WHERE id_cat = ?'
+            );
+            $reponse->execute(array($id));
+            while ($post = $reponse->fetch()) 
+            {
+                $list_post[] = $post;
+            }
+            $reponse->closeCursor();
+            return $list_post;
     }
 
     function search_single_post($bdd, $id)
@@ -84,13 +101,34 @@
     {   
         if(strlen($file['name']) !== 0)
         {
-            unlink('img/article-bg/'.$old_img);
+            // unlink('img/article-bg/'.$old_img);
+            $file_encoded = file_encode($file);
+            $target_dir = 'img/article-bg/'.basename($file_encoded);
+            move_uploaded_file ( $file['tmp_name'], $target_dir);
         }
-        $file_encoded = file_encode($file);
-        $target_dir = 'img/article-bg/'.basename($file_encoded);
-        move_uploaded_file ( $file['tmp_name'], $target_dir);
+        else
+        {
+            $file_encoded = $old_img;
+        }
         $reponse = $bdd->prepare('UPDATE posts SET title = ? , id_auth = ? , id_cat = ? , content = ? , image = ?, updated_date = ? WHERE id = ? ');
         $reponse->execute(array(utf8_decode($title), $author, $categorie, utf8_decode($content), $file_encoded, date("Y-m-d H:i:s"), $article_id));
+    }
+
+    function sql_update_user($bdd, $author_id, $firstname, $lastname, $citation, $description, $old_author_img, $file)
+    {
+        if(strlen($file['name']) !== 0)
+        {
+            unlink('img/authors/'.$old_author_img);
+            $file_encoded = file_encode($file);
+            $target_dir = 'img/authors/'.basename($file_encoded);
+            move_uploaded_file ( $file['tmp_name'], $target_dir);
+        }
+        else
+        {
+            $file_encoded = $old_author_img;
+        }
+        $reponse = $bdd->prepare('UPDATE authors SET firstname = ?, lastname = ?, citation = ?, description = ?, image = ? WHERE id = ?');
+        $reponse->execute(array(utf8_decode($firstname), utf8_decode($lastname), utf8_decode($citation), utf8_decode($description), $file_encoded, $author_id));
     }
 
     function sql_delete($bdd, $id)
