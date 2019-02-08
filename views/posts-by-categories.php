@@ -10,7 +10,7 @@
         echo '</div>';
         echo '<div class="article-resume">';
         echo '<div id="article-header">';
-        echo date("d-m-Y", strtotime($value['created_date'])) .' / '. utf8_encode($value['firstname']) .' / '. utf8_encode($value['name']);
+        echo date("d-m-Y", strtotime($value['created_date'])) .' / <a href="index.php?page=posts-by-authors&id='. $value['id_auth'] .'">'. utf8_encode($value['firstname']) .'</a> / <a href="index.php?page=posts-by-categories&id='. $value['id_cat'] .'">'. utf8_encode($value['name']) .'</a>';
         echo '</div>';
         echo '<h2>'. utf8_encode($value['title']) .'</h2>';
         echo '<hr/>';

@@ -35,8 +35,7 @@
 
 </body>
 
-    <!-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-    <script>tinymce.init({ selector:'textarea' });</script> -->
+    <script src="https://cdn.ckeditor.com/4.11.2/standard/ckeditor.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/jquery.inview.min.js"></script>
     <script src="js/script.js"></script>

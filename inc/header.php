@@ -12,7 +12,6 @@
     </nav>
 
     
-
     <section class="menu-burger">
 		<ul>
             <a href="index.php">accueil</a>

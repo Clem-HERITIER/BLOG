@@ -3,12 +3,6 @@
 
     <?php
 
-        // if (isset($_SESSION['id']))
-        // {
-        //     echo '<a id="new-post" href="index.php?page=new-post">';
-        //     echo 'Créer un nouveau post';
-        //     echo '</a>';
-        // }
 
         for($i = 0; $i < 5; $i++) 
         {
@@ -18,37 +12,37 @@
 
                 echo '<article class="first article">';
                 echo '<div id="article-header">';
-                echo date("d-m-Y", strtotime($value['created_date'])) .' / '. utf8_encode($value['firstname']) .' / '. utf8_encode($value['name']);
+                echo '<div>'. date("d-m-Y", strtotime($value['created_date'])) .' / <a href="index.php?page=posts-by-authors&id='. $value['id_auth'] .'">'. utf8_encode($value['firstname']) .'</a> / <a href="index.php?page=posts-by-categories&id='. $value['id_cat'] .'">'. utf8_encode($value['name']) .'</a></div>';
                 echo '<h2>'. utf8_encode($value['title']) .'</h2>';
                 echo '<hr/>';
                 echo '<p>'. utf8_encode(substr($value['content'], 0, 200)) .'...</p>';
                 echo '<a href="post-'. $value['id'] .'">lire l\'article</a>';
 
-                if (isset($_SESSION['id']))
-                {
-                    if($_SESSION['level'] != 1 && $_SESSION['firstname'] == $value['firstname'])
-                    {
-                        echo '<div class="admin">';
-                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
-                        echo '<img src="img/edit.png" alt="">';
-                        echo '</a>';
-                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
-                        echo '<img src="img/delete.png" alt="">';
-                        echo '</a>';
-                        echo '</div>';
-                    }
-                    elseif($_SESSION['level'] == 1)
-                    {
-                        echo '<div class="admin">';
-                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
-                        echo '<img src="img/edit.png" alt="">';
-                        echo '</a>';
-                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
-                        echo '<img src="img/delete.png" alt="">';
-                        echo '</a>';
-                        echo '</div>';
-                    }
-                }
+                // if (isset($_SESSION['id']))
+                // {
+                //     if($_SESSION['level'] != 1 && $_SESSION['firstname'] == $value['firstname'])
+                //     {
+                //         echo '<div class="admin">';
+                //         echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                //         echo '<img src="img/edit.png" alt="">';
+                //         echo '</a>';
+                //         echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                //         echo '<img src="img/delete.png" alt="">';
+                //         echo '</a>';
+                //         echo '</div>';
+                //     }
+                //     elseif($_SESSION['level'] == 1)
+                //     {
+                //         echo '<div class="admin">';
+                //         echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                //         echo '<img src="img/edit.png" alt="">';
+                //         echo '</a>';
+                //         echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                //         echo '<img src="img/delete.png" alt="">';
+                //         echo '</a>';
+                //         echo '</div>';
+                //     }
+                // }
 
                 echo '</article>';
             }
@@ -63,38 +57,38 @@
                 echo '</div>';
                 echo '<div class="article-resume">';
                 echo '<div id="article-header">';
-                echo date("d-m-Y", strtotime($value['created_date'])) .' / '. utf8_encode($value['firstname']) .' / '. utf8_encode($value['name']);
+                echo date("d-m-Y", strtotime($value['created_date'])) .' / <a href="index.php?page=posts-by-authors&id='. $value['id_auth'] .'">'. utf8_encode($value['firstname']) .'</a> / <a href="index.php?page=posts-by-categories&id='. $value['id_cat'] .'">'. utf8_encode($value['name']) .'</a>';
                 echo '</div>';
                 echo '<h2>'. utf8_encode($value['title']) .'</h2>';
                 echo '<hr/>';
                 echo '<p>'. utf8_encode(substr($value['content'], 0, 200)) .'...</p>';
                 echo '<a href="post-'. $value['id'] .'">lire l\'article</a>';
 
-                if (isset($_SESSION['id']))
-                {
-                    if($_SESSION['level'] != 1 && $_SESSION['firstname'] == $value['firstname'])
-                    {
-                        echo '<div class="admin">';
-                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
-                        echo '<img src="img/edit.png" alt="">';
-                        echo '</a>';
-                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
-                        echo '<img src="img/delete.png" alt="">';
-                        echo '</a>';
-                        echo '</div>';
-                    }
-                    elseif($_SESSION['level'] == 1)
-                    {
-                        echo '<div class="admin">';
-                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
-                        echo '<img src="img/edit.png" alt="">';
-                        echo '</a>';
-                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
-                        echo '<img src="img/delete.png" alt="">';
-                        echo '</a>';
-                        echo '</div>';
-                    }
-                }
+                // if (isset($_SESSION['id']))
+                // {
+                //     if($_SESSION['level'] != 1 && $_SESSION['firstname'] == $value['firstname'])
+                //     {
+                //         echo '<div class="admin">';
+                //         echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                //         echo '<img src="img/edit.png" alt="">';
+                //         echo '</a>';
+                //         echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                //         echo '<img src="img/delete.png" alt="">';
+                //         echo '</a>';
+                //         echo '</div>';
+                //     }
+                //     elseif($_SESSION['level'] == 1)
+                //     {
+                //         echo '<div class="admin">';
+                //         echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                //         echo '<img src="img/edit.png" alt="">';
+                //         echo '</a>';
+                //         echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                //         echo '<img src="img/delete.png" alt="">';
+                //         echo '</a>';
+                //         echo '</div>';
+                //     }
+                // }
 
                 echo '</article>';
 
