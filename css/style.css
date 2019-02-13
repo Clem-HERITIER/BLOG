@@ -115,7 +115,7 @@ body .menu-burger .connect {
   border-radius: 10px;
   overflow: hidden;
   opacity: 0;
-  transition: all .2s;
+  transition: opacity 2s;
 }
 body .menu-burger .connect.visible {
   opacity: 1;
@@ -414,6 +414,11 @@ body main #details-container #full-page #new-comment #submit input {
   border: orangered 1px solid;
   border-radius: 2px;
   text-transform: uppercase;
+  font-weight: 600;
+}
+body main #details-container #full-page #new-comment #reponse {
+  text-align: center;
+  color: red;
   font-weight: 600;
 }
 body main #details-container #full-page .all-comments {
@@ -973,6 +978,12 @@ body main #admin-container .admin h2 {
 body main #admin-container .admin.title {
   width: 20%;
   margin: auto;
+}
+body main #admin-container .admin #reponse {
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+  font-weight: 600;
 }
 body footer {
   height: 350px;

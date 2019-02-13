@@ -1,5 +1,6 @@
 <section id="admin-container">
 
+
     <div class="admin title">
         <h2>Administration</h2>
     </div>
@@ -43,10 +44,10 @@
                 ?>
             <tfoot>
                 <tr>
-                    <form method="post" action="index.php?action=create-auth" enctype="multipart/form-data">
-                    <th><input type="text" name="lastname" placeholder="NOM" required></th>
-                    <th><input type="text" name="firstname" placeholder="PRÉNOM" required></th>
-                    <th><input type="email" name="mail" placeholder="MAIL" required></th>
+                    <form method="post" action="index.php?action=create-author" enctype="multipart/form-data">
+                    <th><input type="text" name="lastname" placeholder="NOM" ></th>
+                    <th><input type="text" name="firstname" placeholder="PRÉNOM" ></th>
+                    <th><input type="email" name="mail" placeholder="MAIL" ></th>
                     <th><select name="level"><option value="2">2</option><option value="1">1</option></select></th>
                     <th><input type="file" name="image"></th>
                     <th><input type="submit" value="Ajouter"></th>
@@ -54,6 +55,7 @@
                 </tr>
             </tfoot>     
         </table>
+        <div id="reponse"> <?php echo $reponse_create_author ?> </div>           
     </div>
     <div class="admin categories">
         <h2>Catégories</h2>
@@ -91,15 +93,16 @@
                 ?>
             <tfoot>
                 <tr>
-                    <form method="post" action="index.php?action=create-cat" enctype="multipart/form-data">
-                    <th><input type="text" name="name" placeholder="NOM" required></th>
-                    <th><input type="text" name="description" placeholder="DESCRIPTION" required></th>
+                    <form method="post" action="index.php?action=create-categorie" enctype="multipart/form-data">
+                    <th><input type="text" name="name" placeholder="NOM" ></th>
+                    <th><input type="text" name="description" placeholder="DESCRIPTION" ></th>
                     <th><input type="file" name="image"></th>
                     <th><input type="submit" value="Ajouter"></th>
                     </form>
                 </tr>
             </tfoot>    
         </table>
+        <div id="reponse"> <?php echo $reponse_create_categorie ?> </div>
     </div>
     <div class="admin posts">
         <h2>Posts</h2>

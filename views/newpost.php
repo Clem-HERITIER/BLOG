@@ -10,6 +10,7 @@
         else
         {         
             echo '<div id="content">';
+            echo '<p>'. $message .'</p>';
             echo '<h2> Créer un nouvel article</h2>';
             echo '<form method="post" action="index.php?action=create" enctype="multipart/form-data">';
             // TITRE

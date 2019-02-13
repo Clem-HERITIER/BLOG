@@ -17,16 +17,17 @@
             <form method="post" <?php echo'action="index.php?action=add-comment&id='. $post['id'] .'"'?> >
                 <input type="hidden" name="post-id" <?php echo 'value="'. $post['id'] .'"'; ?>">
                 <div class="info">
-                    <input type="text" name="name" placeholder="Nom" required>
-                    <input type="email" name="mail" placeholder="Email" required>
+                    <input type="text" name="name" placeholder="Nom" >
+                    <input type="email" name="mail" placeholder="Email" >
                 </div>
                 <div class="comment">
-                    <textarea name="comment" placeholder="Votre commentaire" required></textarea>
+                    <textarea name="comment" placeholder="Votre commentaire" ></textarea>
                 </div>
                 <div id="submit">
                     <input type="submit" value="valider">
                 </div>
             </form>
+            <div id="reponse"> <?php echo $reponse_create_comment ?> </div>
         </div>
 
         <?php 

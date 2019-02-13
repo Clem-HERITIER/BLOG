@@ -18,6 +18,33 @@
             echo '<hr/>';
             echo '<p>'. utf8_encode(substr($value['content'], 0, 200)) .'...</p>';
             echo '<a href="post-'. $value['id'] .'">lire l\'article</a>';
+
+            if (isset($_SESSION['id']))
+                {
+                    if($_SESSION['level'] != 1 && $_SESSION['firstname'] == $value['firstname'])
+                    {
+                        echo '<div class="admin">';
+                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                        echo '<img src="img/edit.png" alt="">';
+                        echo '</a>';
+                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                        echo '<img src="img/delete.png" alt="">';
+                        echo '</a>';
+                        echo '</div>';
+                    }
+                    elseif($_SESSION['level'] == 1)
+                    {
+                        echo '<div class="admin">';
+                        echo '<a href=index.php?page=update&id='. $value['id'] .'">';
+                        echo '<img src="img/edit.png" alt="">';
+                        echo '</a>';
+                        echo '<a href="index.php?action=delete&id='. $value['id'] .'">';
+                        echo '<img src="img/delete.png" alt="">';
+                        echo '</a>';
+                        echo '</div>';
+                    }
+                }
+
             echo '</article>';
         }
     }

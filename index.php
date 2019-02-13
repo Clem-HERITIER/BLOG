@@ -34,90 +34,67 @@ require ("inc/header.php");
 require ("inc/user-pannel.php");
 
 
+$message ="";
+$reponse_create_author = "";
+$reponse_create_categorie = "";
+$reponse_create_comment = "";
+
+
+
 //SUPER CONTROLER
 if (isset($_GET['action']) && isset($_SESSION['id']))
 {
     switch ($_GET['action'])
     {
+        // POSTS
+        case 'create':
+            require 'controller-action/controller_create_post.php';
+            break;
+
         case 'delete':
-            sql_delete_post($bdd, $_GET['id']);
-            $all_posts = search_all_posts($bdd);
-            require 'views/home.php';
+            require 'controller-action/controller_delete_post.php';
             break;
 
         case 'update':
-            sql_update_post($bdd, $_POST['title'], $_POST['author'], $_POST['categorie'], $_POST['content'], $_FILES['fileToUpload'], $_POST['old-article-img'], $_GET['id']);
-            $post = search_single_post($bdd,$_GET['id']);
-            require 'views/details.php';
+            require 'controller-action/controller_update_post.php';
             break;
 
-        case 'create':
-            sql_create_post($bdd, $_POST['title'], $_POST['author'], $_POST['categorie'], $_POST['content'], $_FILES['fileToUpload']);
-            $all_posts = search_all_posts($bdd);
-            require 'views/home.php';
+
+        // AUTHORS
+        case 'create-author':
+            require 'controller-action/controller_create_author.php';
             break;
 
         case 'update-author':
-            sql_update_author($bdd,$_GET['id'], $_POST['firstname'], $_POST['lastname'], $_POST['citation'], $_POST['description'], $_POST['level'], $_POST['old-author-img'], $_FILES['fileToUpload']);
-            $all_posts = search_all_posts($bdd);
-            if($_SESSION['level'] == 1)
-            {
-                $all_posts = search_all_posts($bdd);
-                $all_authors = search_all_authors($bdd);
-                $categories = search_all_categories($bdd);
-                require 'views/administration.php'; 
-            }
-            else
-            {
-                require 'views/home.php';
-            }
+            require 'controller-action/controller_update_author.php';
             break;
         
         case 'delete-author':
-            sql_delete_author($bdd,$_GET['id']);
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php'; 
+            require 'controller-action/controller_delete_author.php';
+            break;
 
-        case 'create-cat':
-            sql_create_cat($bdd, $_POST['name'], $_POST['description'], $_FILES['image']);
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php';
+
+        // CATEGORIES    
+        case 'create-categorie':
+            require 'controller-action/controller_create_categorie.php';
             break;
 
         case 'update-categorie':
-            sql_update_categorie($bdd, $_GET['id'], $_POST['name'], $_POST['description'], $_POST['old-cat-img'], $_FILES['fileToUpload']);
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php';
+            require 'controller-action/controller_update_categorie.php';
             break;
 
         case 'delete-categorie':
-            sql_delete_categorie($bdd, $_GET['id']);
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php';
+            require 'controller-action/controller_delete_categorie.php';
             break;
 
-        case 'create-auth':
-            sql_create_auth($bdd, $_POST['lastname'], $_POST['firstname'], $_POST['mail'], $_POST['level'], $_FILES['image']);
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php';
-            break;
 
+        // COMMENTS
         case 'add-comment':
-            sql_add_comment($bdd, $_POST['post-id'], $_POST['name'], $_POST['mail'], $_POST['comment']);
-            header('Location: post-'. $_GET['id'] .'');
+            require 'controller-action/controller_create_comment.php';
             break;
-}
 
+
+    }
 }
 elseif (isset($_GET['page']))
 {
@@ -125,79 +102,60 @@ elseif (isset($_GET['page']))
     {
         case 'old-posts':
         case 'archives':
-            $page = old_posts_page($_GET['id']);
-            $all_posts = search_all_posts($bdd);
-            require 'views/old-posts.php';
+            require 'controller-page/controller_archives_posts.php';
             break;
 
         case 'details':
-            $post = search_single_post($bdd,$_GET['id']);
-            $nb_comments = count_comments($bdd, $_GET['id']);
-            if($nb_comments['count(*)'] != 0)
-            {
-                $comments = search_all_comments($bdd, $_GET['id']);
-            }
-            require 'views/details.php';
+            require 'controller-page/controller_details_post.php';
             break;
 
         case 'new-post';
-            $all_categories = search_all_categories($bdd);
-            $all_authors = search_all_authors($bdd);
-            require 'views/newpost.php';
+            require 'controller-page/controller_form_create_post.php';
             break;
 
         case 'update':
-            $post = search_single_post($bdd,$_GET['id']);
-            $all_categories = search_all_categories($bdd);
-            $all_authors = search_all_authors($bdd);
-            require 'views/update.php';
+            require 'controller-page/controller_form_update_post.php';
             break;
         
         case 'categories':
-            $categories = search_all_categories($bdd);
-            require 'views/categories.php';
+            require 'controller-page/controller_list_categories.php';
             break;
 
         case 'auteurs':
-            $all_authors = search_all_authors($bdd);
-            require 'views/auteurs.php';
+            require 'controller-page/controller_list_authors.php';
             break;
 
         case 'posts-by-categories';
-            $categories_posts = search_posts_by_categories($bdd, $_GET['id']);
-            require 'views/posts-by-categories.php';
+            require 'controller-page/controller_list_posts_by_categories.php';
             break;
 
         case 'posts-by-authors';
-            $all_posts = search_all_posts($bdd);
-            $author = $_GET['id'];
-            require 'views/posts-by-authors.php';
+            require 'controller-page/controller_list_posts-by-authors.php';
             break;
 
         case 'about':
-            require 'views/about.php';
+            require 'controller-page/controller_about.php';
             break;
 
         case 'contact':
-            require 'views/contact.php';
+            require 'controller-page/controller_contact.php';
             break;
             
         case 'admin';
-            $all_posts = search_all_posts($bdd);
-            $all_authors = search_all_authors($bdd);
-            $categories = search_all_categories($bdd);
-            require 'views/administration.php';
+            require 'controller-page/controller_administration.php';
             break;
 
         case 'edit-author':
-            $author = search_author($bdd, $_GET['id']);
-            require 'views/user-profil.php';
+            require 'controller-page/controller_form_update_author.php';
             break;
 
         case 'edit-categorie';
-            $categorie = search_categorie($bdd, $_GET['id']);
-            require 'views/edit-cat.php';
-            break;     
+            require 'controller-page/controller_form_update_categorie.php';
+            break;   
+            
+        case 'api':
+            require 'api/api_list_post.php';
+            break;
     }
 }
 else 

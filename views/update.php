@@ -14,6 +14,7 @@
         {
             echo '<div id="content">';
             echo '<h2> Editer l\'article</h2>';
+            echo '<p>'. $message .'</p>';
             echo '<form method="post" action="index.php?action=update&id='. $post['id'] .'" enctype="multipart/form-data">';
             // ID ARTICLE
             echo '<input name="article-id" type="hidden" value="'. $post['id'] .'">';
@@ -23,11 +24,19 @@
             echo '<input type="text" name="title" value="'. utf8_encode($post['title']) .'">';
             // LISTE AUTEURS
             echo '<select id="authors-select"  name="author">';
-            echo '<option value="null">--Auteurs--</option>';
-                    foreach ($all_authors as $value) 
-                    {
-                        echo '<option value="'. $value['id'] .'">'. utf8_encode($value['firstname']) .' '. utf8_encode($value['lastname']) .'</option>';
-                    }
+            if($_SESSION['level'] == 1)
+            {
+                echo '<option value="null">--Auteurs--</option>';
+
+                foreach ($all_authors as $value) 
+                {
+                    echo '<option value="'. $value['id'] .'">'. utf8_encode($value['firstname']) .' '. utf8_encode($value['lastname']) .'</option>';
+                }
+            }
+            else
+            {
+                echo '<option value="'. $_SESSION['id'] .'">'. $_SESSION['firstname'] .' '. $_SESSION['lastname'] .'</option>';
+            }
             echo '</select>';
             // LISTE CATEGORIES
             echo '<select id="categories-select" name="categorie">';
